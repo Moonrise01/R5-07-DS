@@ -26,6 +26,6 @@ jobs:
         run: |
             git config user.name "github-actions[bot]"
             git config user.email "moonrise000010101@gmail.com"
-            git add Q2_archive_TOTO.txt
-            git commit -m "Mise à jour de Q2_archive_TOTO.txt" || exit 0
+            git add Q2_archive_XYZ.txt
+            git commit -m "Mise à jour de Q2_archive_XYZ.txt" || exit 0
             git push
