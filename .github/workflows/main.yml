@@ -1,0 +1,29 @@
+name: Q3 - Archive Q3.java 
+on: 
+  push: 
+    paths: 
+      - 'Q3.java' 
+      - '.github/workflows/Q3.yaml' 
+ 
+jobs: 
+  archive-q3: 
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: write 
+    steps: 
+      - name: Récupérer le dépôt 
+        uses: actions/checkout@v4 
+ 
+      - name: Générer Q3_archive_java.txt 
+        run: | 
+          echo "Nom Prénom : Azenha Nascimento Marta" > Q3_archive_java.txt 
+          echo "--- Code de Q3.java ---" >> Q3_archive_java.txt 
+          cat Q3.java >> Q3_archive_java.txt 
+ 
+      - name: Pousser le fichier vers le dépôt 
+        run: | 
+          git config user.name "github-actions[bot]" 
+          git config user.email "moonrise00010101@gmail.com" 
+          git add Q3_archive_java.txt 
+          git commit -m "Ajout de Q3_archive_java.txt" || exit 0 
+          git push 
