@@ -1,0 +1,42 @@
+name: Q6 - Archive horodatée, wc et diff 
+on: 
+  push: 
+    paths: 
+      - 'Q6.java' 
+      - '.github/workflows/Q6.yaml' 
+ 
+jobs: 
+  archive-q6: 
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: write 
+    steps: 
+      - name: Récupérer le dépôt 
+        uses: actions/checkout@v4 
+ 
+      - name: Générer archive Q6 et fichier diff 
+        run: | 
+          DATE_STR=$(date +%d-%m-%Y-%H%M%S) 
+          NEW_ARCHIVE="Q6_archive_${DATE_STR}.txt" 
+          DIFF_FILE="Q6_diff_${DATE_STR}.txt" 
+          PREV_ARCHIVE=$(ls -1t Q6_archive_*.txt 2>/dev/null | head -n 1 || true) 
+ 
+          echo "Nom Prénom : Azenha Nascimento Marta" > "$NEW_ARCHIVE" 
+          echo "Taille de Q6.java (lignes / caractères) : $(wc -l < Q6.java) lignes, $(wc -m < Q6.java) caractères" >> "$NEW_ARCHIVE" 
+          echo "--- Code de Q6.java ---" >> "$NEW_ARCHIVE" 
+          cat Q6.java >> "$NEW_ARCHIVE" 
+ 
+          if [ -n "$PREV_ARCHIVE" ]; then 
+            echo "Différences entre $PREV_ARCHIVE et  $NEW_ARCHIVE :" > "$DIFF_FILE" 
+            diff "$PREV_ARCHIVE" "$NEW_ARCHIVE" >> "$DIFF_FILE" || true 
+          else 
+            echo "Aucune archive précédente trouvée pour effectuer le diff." > "$DIFF_FILE" 
+          fi 
+
+      - name: Pousser les nouveaux fichiers vers le dépôt 
+        run: | 
+          git config user.name "github-actions[bot]" 
+          git config user.email "moonrise000010101@gmail.com" 
+          git add Q6_archive_*.txt Q6_diff_*.txt 
+          git commit -m "Archivage et diff Q6 du $(date +%d-%m%Y-%H%M%S)" || exit 0 
+          git push 
