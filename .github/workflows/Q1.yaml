@@ -19,5 +19,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "moonrise000010101@gmail.com"
+          git add Q1_archive_XYZ.txt
           git commit -m "push de Q1_archive_XYZ.txt"
           git push
