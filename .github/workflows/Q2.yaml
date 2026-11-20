@@ -1,0 +1,24 @@
+name: Q2 - Archive XYZ détaillée
+on:
+  push:
+    paths:
+      - 'XYZ.txt'
+      - 'README.md'
+      - '.github/workflows/Q2.yaml'
+jobs:
+  archive-q2:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v4
+        
+      - name: Générer Q2_archive_TOTO.txt
+        run: |
+          echo "Nom Prénom : Azenha Nascimento Marta" > Q2_archive_XYZ.txt
+          echo "Date et heure : $(date '+%d/%m/%Y %H:%M:%S')" >> Q2_archive_XYZ.txt
+          echo "--- Contenu de XYZ.txt ---" >> Q2_archive_XYZ.txt
+          cat XYZ.txt >> Q2_archive_XYZ.txt
+          echo "" >> Q2_archive_XYZ.txt
+          echo "Taille de XYZ.txt : $(wc -c < XYZ.txt) octets" >> Q2_archive_XYZ.txt
