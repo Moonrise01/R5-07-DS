@@ -1,0 +1,9 @@
+Différences entre Q6_archive_20-11-2026-140905.txt et  Q6_archive_20-11-2026-140932.txt :
+2c2
+< Taille de Q6.java (lignes / caractères) : 16 lignes, 449 caractères
+---
+> Taille de Q6.java (lignes / caractères) : 16 lignes, 450 caractères
+7c7
+<             System.out.println("Veuillez fournir un entier N en paramètre."); 
+---
+>             System.out.println("Veuillez fournir un entier N en paramètree."); 
