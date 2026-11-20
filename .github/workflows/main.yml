@@ -1,0 +1,32 @@
+name: Q5 - Archive Q5.java avec date 
+ 
+on: 
+  push: 
+    paths: 
+      - 'Q5.java' 
+      - '.github/workflows/Q5.yaml' 
+ 
+jobs: 
+  archive-q5: 
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: write 
+    steps: 
+      - name: Récupérer le dépôt 
+        uses: actions/checkout@v4 
+ 
+      - name: Générer Q5_archive_date.txt 
+        run: | 
+          DATE_STR=$(date +%d-%m-%Y) 
+          FILENAME="Q5_archive_${DATE_STR}.txt" 
+          echo "Nom Prénom : Azenha Nascimento Marta" > "$FILENAME" 
+          echo "--- Code de Q5.java ---" >> "$FILENAME" 
+          cat Q5.java >> "$FILENAME" 
+ 
+      - name: Pousser le fichier vers le dépôt 
+        run: | 
+          git config user.name "github-actions[bot]" 
+          git config user.email "moonrise000010101@gmail.com" 
+          git add Q5_archive_*.txt 
+          git commit -m "Archivage Q5 du $(date +%d-%m-%Y)" || exit 0 
+          git push
