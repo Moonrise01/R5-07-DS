@@ -1,0 +1,32 @@
+name: Q4 - Archive Q4.java avec date 
+ 
+on: 
+  push: 
+    paths: 
+      - 'Q4.java' 
+      - '.github/workflows/Q4.yaml' 
+ 
+jobs: 
+  archive-q4: 
+    runs-on: ubuntu-latest 
+    permissions: 
+      contents: write 
+    steps: 
+      - name: Récupérer le dépôt 
+        uses: actions/checkout@v4 
+ 
+      - name: Générer Q4_archive_date.txt 
+        run: | 
+          DATE_STR=$(date +%d-%m-%Y) 
+          FILENAME="Q4_archive_${DATE_STR}.txt" 
+          echo "Nom Prénom : Azenha Nascimento Marta" > "$FILENAME" 
+          echo "--- Code de Q4.java ---" >> "$FILENAME" 
+          cat Q4.java >> "$FILENAME" 
+ 
+      - name: Pousser le fichier vers le dépôt 
+        run: | 
+          git config user.name "github-actions[bot]" 
+          git config user.email "moonrise000010101@gmail.com" 
+          git add Q4_archive_*.txt 
+          git commit -m "Archivage Q4 du $(date +%d-%m-%Y)" || exit 0 
+          git push
