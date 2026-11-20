@@ -18,4 +18,4 @@ jobs:
       - name: Pousser le fichier vers le dépôt
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github
+          git config user.email "github-actions[bot]@users.noreply.github.com"
